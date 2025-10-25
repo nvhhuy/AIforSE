@@ -5,7 +5,6 @@
 .project
 
 # Maven
-target/
 *.class
 
 # OS junk
