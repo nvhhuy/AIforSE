@@ -1,0 +1,90 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BookingService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.luxestay.hotel.service</a>
+</div>
+
+<h1>Coverage Summary for Class: BookingService (com.luxestay.hotel.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">BookingService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.luxestay.hotel.service;
+&nbsp;
+&nbsp;import com.luxestay.hotel.dto.PagedResponse;
+&nbsp;import com.luxestay.hotel.dto.booking.*;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;public interface BookingService {
+&nbsp;    BookingResponse create(Integer accountId, BookingRequest req);
+&nbsp;
+&nbsp;    // KH g?i yêu c?u h?y
+&nbsp;    void requestCancel(Integer bookingId, Integer accountId, String reason);
+&nbsp;
+&nbsp;    // Admin/Staff duy?t/t? ch?i
+&nbsp;    void decideCancel(Integer bookingId, Integer staffId, boolean approve, String note);
+&nbsp;
+&nbsp;    // l?ch s? ??t phòng (c?a 1 account)
+&nbsp;    PagedResponse&lt;BookingSummary&gt; history(Integer accountId, String status, Integer page, Integer size);
+&nbsp;
+&nbsp;    @Transactional
+&nbsp;        // ??m b?o c? 2 cùng thành công
+&nbsp;    void confirmBookingPayment(int bookingId);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-25 10:13</div>
+</div>
+</body>
+</html>

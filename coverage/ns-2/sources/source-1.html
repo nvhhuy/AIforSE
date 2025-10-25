@@ -1,0 +1,171 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > BookingQueryServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.luxestay.hotel.service.impl</a>
+</div>
+
+<h1>Coverage Summary for Class: BookingQueryServiceImpl (com.luxestay.hotel.service.impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookingQueryServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.luxestay.hotel.service.impl;
+&nbsp;
+&nbsp;import com.luxestay.hotel.dto.PagedResponse;
+&nbsp;import com.luxestay.hotel.dto.booking.BookingSummary;
+&nbsp;import com.luxestay.hotel.model.entity.BookingEntity;
+&nbsp;import com.luxestay.hotel.repository.BookingRepository;
+&nbsp;import com.luxestay.hotel.service.BookingQueryService;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import org.springframework.data.domain.Page;
+&nbsp;import org.springframework.data.domain.Pageable;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;import org.springframework.transaction.annotation.Transactional;
+&nbsp;
+&nbsp;import java.time.temporal.ChronoUnit;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;@RequiredArgsConstructor
+&nbsp;public class BookingQueryServiceImpl implements BookingQueryService {
+&nbsp;
+&nbsp;    private final BookingRepository bookingRepository;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    @Transactional(readOnly = true)
+&nbsp;    public PagedResponse&lt;BookingSummary&gt; listMine(Integer accountId, String status, Pageable pageable) {
+&nbsp;        // dùng l?i query ?ã có
+<b class="nc">&nbsp;        Page&lt;BookingEntity&gt; page = bookingRepository.findForHistory(accountId, status, pageable);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;BookingSummary&gt; items = page.getContent().stream().map(b -&gt; {</b>
+<b class="nc">&nbsp;            BookingSummary s = new BookingSummary();</b>
+<b class="nc">&nbsp;            s.setId(b.getId());</b>
+<b class="nc">&nbsp;            if (b.getRoom() != null) {</b>
+<b class="nc">&nbsp;                s.setRoomId(b.getRoom().getId());</b>
+<b class="nc">&nbsp;                s.setRoomName(b.getRoom().getRoomName());</b>
+<b class="nc">&nbsp;                s.setRoomImageUrl(b.getRoom().getImageUrl());</b>
+<b class="nc">&nbsp;                s.setBedLayout(b.getRoom().getBedLayout() != null ? b.getRoom().getBedLayout().getLayoutName() : null);</b>
+<b class="nc">&nbsp;                s.setGuests(b.getRoom().getCapacity());</b>
+<b class="nc">&nbsp;                s.setCancelReason(b.getCancelReason());</b>
+&nbsp;
+&nbsp;            }
+<b class="nc">&nbsp;            s.setCheckIn(b.getCheckIn());</b>
+<b class="nc">&nbsp;            s.setCheckOut(b.getCheckOut());</b>
+<b class="nc">&nbsp;            long nights = 0;</b>
+<b class="nc">&nbsp;            if (b.getCheckIn() != null &amp;&amp; b.getCheckOut() != null) {</b>
+<b class="nc">&nbsp;                nights = Math.max(ChronoUnit.DAYS.between(b.getCheckIn(), b.getCheckOut()), 0);</b>
+&nbsp;            }
+<b class="nc">&nbsp;            s.setNights(nights);</b>
+<b class="nc">&nbsp;            s.setTotalPrice(b.getTotalPrice());</b>
+<b class="nc">&nbsp;            s.setStatus(b.getStatus());</b>
+<b class="nc">&nbsp;            return s;</b>
+<b class="nc">&nbsp;        }).toList();</b>
+&nbsp;
+<b class="nc">&nbsp;        return new PagedResponse&lt;&gt;(items, page.getTotalElements(), page.getNumber(), page.getSize());</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-25 10:37</div>
+</div>
+</body>
+</html>

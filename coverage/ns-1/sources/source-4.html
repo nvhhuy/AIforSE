@@ -1,0 +1,114 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > RoomService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.luxestay.hotel.service</a>
+</div>
+
+<h1>Coverage Summary for Class: RoomService (com.luxestay.hotel.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">RoomService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.luxestay.hotel.service;
+&nbsp;
+&nbsp;import com.luxestay.hotel.dto.PagedResponse;
+&nbsp;import com.luxestay.hotel.dto.RoomAvailabilityRequest;
+&nbsp;import com.luxestay.hotel.dto.RoomDetail;
+&nbsp;import com.luxestay.hotel.dto.RoomRecommendRequest;
+&nbsp;import com.luxestay.hotel.dto.RoomRequest;
+&nbsp;import com.luxestay.hotel.dto.RoomSearchCriteria;
+&nbsp;import com.luxestay.hotel.model.Room;
+&nbsp;import com.luxestay.hotel.dto.RoomImageRequest;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;public interface RoomService {
+&nbsp;    List&lt;Room&gt; listRooms();
+&nbsp;
+&nbsp;    List&lt;Room&gt; listAllRoomsForAdmin(); // List all rooms including hidden ones (admin only)
+&nbsp;
+&nbsp;    PagedResponse&lt;Room&gt; search(RoomSearchCriteria c);
+&nbsp;
+&nbsp;    PagedResponse&lt;Room&gt; checkAvailability(RoomAvailabilityRequest req); // Ki?m tra phòng tr?ng theo ngày
+&nbsp;
+&nbsp;    RoomDetail getDetail(Long id);
+&nbsp;
+&nbsp;    // Admin CRUD operations
+&nbsp;    Room createRoom(RoomRequest req); // T?o phòng m?i (admin only)
+&nbsp;
+&nbsp;    Room updateRoom(Long id, RoomRequest req); // C?p nh?t phòng (admin only)
+&nbsp;
+&nbsp;    void deleteRoom(Long id); // Xóa phòng (soft delete, admin only)
+&nbsp;
+&nbsp;    void toggleVisibility(Long id, Boolean isVisible); // Toggle show/hide room (admin only)
+&nbsp;
+&nbsp;    void updateRoomStatus(Long id, String newStatus, String reason); // Update room status with state machine validation
+&nbsp;                                                                     // (admin only)
+&nbsp;
+&nbsp;    // Recommendation
+&nbsp;    List&lt;Room&gt; recommendRooms(RoomRecommendRequest req); // G?i ý phòng d?a trên thu?t toán
+&nbsp;
+&nbsp;    // Image management
+&nbsp;    List&lt;String&gt; addImages(Long roomId, List&lt;RoomImageRequest&gt; images); // thêm/??t ?nh
+&nbsp;
+&nbsp;    void setPrimaryImage(Long roomId, Integer imageId); // ??i ?nh chính
+&nbsp;
+&nbsp;    void deleteImage(Long roomId, Integer imageId); // xoá ?nh
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-10-25 10:37</div>
+</div>
+</body>
+</html>
